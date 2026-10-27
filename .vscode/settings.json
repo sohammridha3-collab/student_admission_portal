@@ -1,0 +1,9 @@
+{
+  "css.lint.unknownProperties": "warning",
+  "css.lint.validProperties": [
+    "text-fill-color",
+    "-webkit-text-fill-color"
+  ],
+  "editor.formatOnSave": true,
+  "files.eol": "\n"
+}
