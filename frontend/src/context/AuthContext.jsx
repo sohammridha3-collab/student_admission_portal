@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { api } from '../services/api';
 
 const AuthContext = createContext(null);
@@ -75,6 +75,12 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('admission_portal_token'));
   const [loading, setLoading] = useState(true);
 
+  const logout = useCallback(() => {
+    localStorage.removeItem('admission_portal_token');
+    setToken(null);
+    setUser(null);
+  }, []);
+
   useEffect(() => {
     async function loadUser() {
       if (token) {
@@ -89,7 +95,7 @@ export function AuthProvider({ children }) {
       setLoading(false);
     }
     loadUser();
-  }, [token]);
+  }, [token, logout]);
 
   const login = async (email, password, requestedRole) => {
     const data = await api.login({ email, password, requestedRole });
@@ -105,12 +111,6 @@ export function AuthProvider({ children }) {
     setToken(data.token);
     setUser(data.user);
     return data;
-  };
-
-  const logout = () => {
-    localStorage.removeItem('admission_portal_token');
-    setToken(null);
-    setUser(null);
   };
 
   const loginAsDemo = async (demoAccount) => {
