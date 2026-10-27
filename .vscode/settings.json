@@ -1,5 +1,6 @@
 {
   "css.lint.unknownProperties": "warning",
+  "css.lint.vendorPrefix": "ignore",
   "css.lint.validProperties": [
     "text-fill-color",
     "-webkit-text-fill-color"
