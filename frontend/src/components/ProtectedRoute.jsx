@@ -8,6 +8,12 @@ export default function ProtectedRoute({ children, allowedRoles = [], requiredPe
   const toast = useToast();
   const location = useLocation();
 
+  useEffect(() => {
+    if (!loading && user && allowedRoles.length > 0 && !allowedRoles.includes(role)) {
+      toast.error(`Access Denied: ${role} account cannot access that dashboard.`);
+    }
+  }, [loading, user, role, allowedRoles, toast]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
@@ -15,12 +21,6 @@ export default function ProtectedRoute({ children, allowedRoles = [], requiredPe
       </div>
     );
   }
-
-  useEffect(() => {
-    if (!loading && user && allowedRoles.length > 0 && !allowedRoles.includes(role)) {
-      toast.error(`Access Denied: ${role} account cannot access that dashboard.`);
-    }
-  }, [loading, user, role]);
 
   // 1. Not Authenticated: Redirect to Login
   if (!user) {
