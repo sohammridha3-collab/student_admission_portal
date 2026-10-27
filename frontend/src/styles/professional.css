@@ -1,0 +1,366 @@
+/* ==========================================================================
+   METROPOLITAN ADMISSIONS - ENTERPRISE PROFESSIONAL DESIGN SYSTEM
+   High-performance styles, tokens, elevation surfaces, and micro-interactions
+   ========================================================================== */
+
+:root {
+  /* Brand Palette */
+  --brand-50: #f0f7ff;
+  --brand-100: #e0effe;
+  --brand-200: #bae0fd;
+  --brand-300: #7cc8fb;
+  --brand-400: #38aaf6;
+  --brand-500: #0e8ce9;
+  --brand-600: #026fc7;
+  --brand-700: #0358a1;
+  --brand-800: #074b85;
+  --brand-900: #0c3f6e;
+
+  /* Semantic Accents */
+  --emerald-500: #10b981;
+  --emerald-600: #059669;
+  --rose-500: #f43f5e;
+  --rose-600: #e11d48;
+  --amber-500: #f59e0b;
+  --indigo-500: #6366f1;
+
+  /* Surfaces & Elevation */
+  --surface-canvas: #f8fafc;
+  --surface-card: #ffffff;
+  --surface-muted: #f1f5f9;
+  --border-hairline: rgba(226, 232, 240, 0.85);
+  --border-strong: #cbd5e1;
+  --border-focus: rgba(2, 111, 199, 0.4);
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-card: 0 4px 6px -1px rgba(15, 23, 42, 0.04), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
+  --shadow-hover: 0 12px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.03);
+  --shadow-glow-brand: 0 8px 20px -4px rgba(2, 111, 199, 0.28);
+  --shadow-glow-emerald: 0 8px 20px -4px rgba(16, 185, 129, 0.25);
+  --shadow-glow-rose: 0 8px 20px -4px rgba(244, 63, 94, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   1. Typography & Numerics
+   -------------------------------------------------------------------------- */
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.011em;
+  background-color: var(--surface-canvas);
+  color: #0f172a;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-numeric {
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Gradient Text Utilities */
+.text-gradient-brand {
+  background: linear-gradient(135deg, #026fc7 0%, #4338ca 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-dark {
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   2. Professional Card & Surface Architecture
+   -------------------------------------------------------------------------- */
+.pro-card {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pro-card-hover {
+  background: #ffffff;
+  border: 1px solid var(--border-hairline);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-card);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.pro-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(148, 163, 184, 0.45);
+  box-shadow: var(--shadow-hover);
+}
+
+.pro-card-highlight {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  border: 1px solid rgba(2, 111, 199, 0.16);
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 16px -2px rgba(2, 111, 199, 0.06);
+}
+
+/* Frosted Glass Panels */
+.pro-glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-card);
+}
+
+.pro-glass-dark {
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(51, 65, 85, 0.65);
+  color: #f8fafc;
+}
+
+/* --------------------------------------------------------------------------
+   3. Ambient Decorative Patterns & Mesh
+   -------------------------------------------------------------------------- */
+.bg-mesh {
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(2, 111, 199, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.04) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.03) 0px, transparent 50%);
+}
+
+.bg-dot-grid {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle, rgba(148, 163, 184, 0.22) 1px, transparent 1px);
+}
+
+/* --------------------------------------------------------------------------
+   4. Enterprise Table Styling
+   -------------------------------------------------------------------------- */
+.pro-table-container {
+  overflow-x: auto;
+  border-radius: 1rem;
+  border: 1px solid var(--border-hairline);
+  background: #ffffff;
+}
+
+.pro-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+  font-size: 0.8125rem;
+}
+
+.pro-table th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.pro-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+  vertical-align: middle;
+  transition: background-color 0.15s ease;
+}
+
+.pro-table tr:last-child td {
+  border-bottom: none;
+}
+
+.pro-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.pro-table tbody tr:hover {
+  background-color: rgba(248, 250, 252, 0.85);
+}
+
+/* --------------------------------------------------------------------------
+   5. Buttons & Interactive Controls
+   -------------------------------------------------------------------------- */
+.btn-primary {
+  background: linear-gradient(135deg, #026fc7 0%, #0358a1 100%);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-glow-brand);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #037adb 0%, #026fc7 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -4px rgba(2, 111, 199, 0.35);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-glow-emerald);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-success:hover:not(:disabled) {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -4px rgba(16, 185, 129, 0.32);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-glow-rose);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  transform: translateY(-1px);
+}
+
+/* Tactile button active states */
+button {
+  transition: transform 0.1s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* --------------------------------------------------------------------------
+   6. Form Inputs & Focus Rings
+   -------------------------------------------------------------------------- */
+.pro-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  font-size: 0.8125rem;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.pro-input:focus {
+  border-color: #026fc7;
+  box-shadow: 0 0 0 3px rgba(2, 111, 199, 0.16);
+  background-color: #ffffff;
+}
+
+.pro-input::placeholder {
+  color: #94a3b8;
+}
+
+/* --------------------------------------------------------------------------
+   7. Live Status Indicators & Pulses
+   -------------------------------------------------------------------------- */
+.pulse-emerald {
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+  animation: pulse-emerald 2s infinite;
+}
+
+@keyframes pulse-emerald {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.pulse-amber {
+  box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6);
+  animation: pulse-amber 2s infinite;
+}
+
+@keyframes pulse-amber {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(245, 158, 11, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Custom Polished Scrollbars
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* --------------------------------------------------------------------------
+   9. Print Media Styles (For Acceptance Letters & Fee Receipts)
+   -------------------------------------------------------------------------- */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-admission-letter,
+  #printable-admission-letter * {
+    visibility: visible;
+  }
+  #printable-admission-letter {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 32px;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}

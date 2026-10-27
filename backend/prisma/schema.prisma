@@ -1,0 +1,130 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                 Int            @id @default(autoincrement())
+  name               String
+  email              String         @unique
+  password_hash      String
+  role               String         // "STUDENT", "OFFICER", "ADMIN"
+  status             String         @default("ACTIVE") // "ACTIVE", "INACTIVE"
+  permissions        String?        // JSON string for granular RBAC permissions
+  reset_token        String?
+  reset_token_expiry DateTime?
+  created_at         DateTime       @default(now())
+  updated_at         DateTime       @updatedAt
+
+  applications       Application[]
+  logs               SystemLog[]
+  notifications      Notification[]
+  verified_documents Document[]     @relation("VerifiedDocs")
+  conducted_tests    EntranceTest[] @relation("ConductedByOfficer")
+}
+
+model Application {
+  id                 Int           @id @default(autoincrement())
+  application_number String        @unique
+  student_id         Int
+  student            User          @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  course_applied     String        @default("Bachelor of Computer Science")
+  academic_year      String        @default("2026-2027")
+  personal_info      String?       // JSON: { fullName, dob, gender, phone, address, guardianName, guardianPhone }
+  academic_info      String?       // JSON: { highSchool, board, graduationYear, gpaOrPercentage, majorStream, achievements }
+  status             String        @default("DRAFT") // "DRAFT", "SUBMITTED", "UNDER_REVIEW", "TEST_SCHEDULED", "APPROVED", "REJECTED"
+  review_notes       String?
+  submission_date    DateTime?
+  decision_date      DateTime?
+  created_at         DateTime      @default(now())
+  updated_at         DateTime      @updatedAt
+
+  documents          Document[]
+  payment            Payment?
+  entrance_test      EntranceTest?
+}
+
+model Document {
+  id                  Int          @id @default(autoincrement())
+  application_id      Int
+  application         Application  @relation(fields: [application_id], references: [id], onDelete: Cascade)
+  document_type       String       // e.g. "High School Transcript", "Government ID", "Passport Photo"
+  file_url            String
+  original_filename   String
+  file_size           Int?
+  mime_type           String?
+  verification_status String       @default("PENDING") // "PENDING", "VERIFIED", "REJECTED"
+  rejection_reason    String?
+  verified_by_id      Int?
+  verified_by         User?        @relation("VerifiedDocs", fields: [verified_by_id], references: [id])
+  verified_at         DateTime?
+  created_at          DateTime     @default(now())
+}
+
+model Payment {
+  id             Int         @id @default(autoincrement())
+  application_id Int         @unique
+  application    Application @relation(fields: [application_id], references: [id], onDelete: Cascade)
+  amount         Float
+  transaction_id String      @unique
+  payment_method String      @default("CREDIT_CARD") // "CREDIT_CARD", "UPI", "NET_BANKING"
+  status         String      @default("PENDING")     // "PENDING", "COMPLETED", "FAILED"
+  paid_at        DateTime?
+  created_at     DateTime    @default(now())
+}
+
+model EntranceTest {
+  id              Int         @id @default(autoincrement())
+  application_id  Int         @unique
+  application     Application @relation(fields: [application_id], references: [id], onDelete: Cascade)
+  test_name       String      @default("Undergraduate Academic Aptitude Test (UAAT)")
+  test_date       DateTime?
+  score           Float?
+  max_score       Float       @default(100.0)
+  passing_score   Float       @default(50.0)
+  status          String      @default("SCHEDULED") // "SCHEDULED", "COMPLETED", "WAIVED"
+  notes           String?
+  conducted_by_id Int?
+  conducted_by    User?       @relation("ConductedByOfficer", fields: [conducted_by_id], references: [id])
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @updatedAt
+}
+
+model SystemPolicy {
+  id                   Int      @id @default(autoincrement())
+  application_deadline DateTime
+  application_fee      Float    @default(75.0)
+  academic_year        String   @default("2026-2027")
+  portal_status        String   @default("OPEN") // "OPEN", "CLOSED"
+  required_documents   String   // JSON: ["High School Transcript", "Government ID", "Passport Photo"]
+  passing_score        Float    @default(60.0)
+  announcement         String?
+  updated_at           DateTime @updatedAt
+}
+
+model SystemLog {
+  id         Int      @id @default(autoincrement())
+  user_id    Int?
+  user       User?    @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  user_name  String
+  user_role  String
+  action     String
+  details    String?
+  ip_address String?
+  timestamp  DateTime @default(now())
+}
+
+model Notification {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  title      String
+  message    String
+  type       String   @default("INFO") // "INFO", "SUCCESS", "WARNING", "DANGER"
+  is_read    Boolean  @default(false)
+  created_at DateTime @default(now())
+}

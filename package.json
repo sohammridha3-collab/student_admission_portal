@@ -1,0 +1,22 @@
+{
+  "name": "student-admission-portal",
+  "version": "1.0.0",
+  "description": "Student Admission Portal with Role-Based Access Control, Document Verification, and Automated Workflow Engine",
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "npx -y concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "start": "npx -y concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "seed": "cd backend && npm run seed"
+  },
+  "keywords": [
+    "student-admission-portal",
+    "react",
+    "express",
+    "prisma",
+    "jwt",
+    "rbac"
+  ],
+  "author": "Antigravity Team",
+  "license": "ISC"
+}
